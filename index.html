@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<h1>
+  Login to Server
+</h1>
+
+<body>
+  <p id="demo"></p>
+  user: <input type='text' id='user' />
+  password: <input type='text' id='psw' />
+  <script>
+    function send() {
+
+      var user = document.getElementById('user').value;
+      var pass = document.getElementById('psw').value;
+      if (user == "") {
+        alert("Name must be filled out");
+        return false;
+      } else if (pass == "") {
+        alert("Password must be filled out");
+        return false;
+      }
+
+      var number = {
+        user: document.getElementById('user').value,
+        psw: document.getElementById('psw').value
+      }
+      var xhr = new window.XMLHttpRequest()
+      xhr.onreadystatechange = function () { // listen for state changes
+        if (xhr.readyState == 4 && xhr.status == 200) { // when completed we can move away
+          window.location = "/home";
+        }
+      }
+      xhr.open('POST', '/login', true)
+      xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+      xhr.send(JSON.stringify(number))
+
+    }
+  </script>
+  <button type='button' value='Send' name='Send' onclick='send()'>
+    Send
+  </button>
+</body>
+
+</html>
